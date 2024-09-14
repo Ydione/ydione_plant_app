@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Positioned(
                           top: 10,
-                          right: 20,
+                          right: 10,
                           child: Container(
                             height: 50,
                             width: 50,
@@ -181,22 +181,109 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Positioned(
-                            bottom: 15,
-                            right: 20,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 2),
+                          bottom: 15,
+                          right: 20,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              r'$' + _plantList[index].price.toString(),
+                              style: TextStyle(
+                                  color: Constants.primaryColor, fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
+              child: Text(
+                'New Plant',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    color: Constants.blackColor),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              height: size.height * .5,
+              child: ListView.builder(
+                itemCount: _plantList.length,
+                scrollDirection: Axis.vertical,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Constants.primaryColor.withOpacity(.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    height: 80.0,
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    margin: const EdgeInsets.only(bottom: 10, top: 10),
+                    width: size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              width: 60.0,
+                              height: 60.0,
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
+                                color: Constants.primaryColor.withOpacity(.8),
+                                shape: BoxShape.circle,
                               ),
-                              child: Text(
-                                r'$' + _plantList[index].price.toString(),
-                                style: TextStyle(
-                                    color: Constants.primaryColor,
-                                    fontSize: 16),
+                            ),
+                            Positioned(
+                              bottom: 5,
+                              left: 0,
+                              right: 0,
+                              child: SizedBox(
+                                height: 80.0,
+                                child: Image.asset(_plantList[index].imageURL),
                               ),
-                            ))
+                            ),
+                            Positioned(
+                              bottom: 5,
+                              left: 80,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(_plantList[index].category),
+                                  Text(
+                                    _plantList[index].plantName,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Constants.blackColor,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text(
+                            r'$' + _plantList[index].price.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                              color: Constants.primaryColor,
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   );
