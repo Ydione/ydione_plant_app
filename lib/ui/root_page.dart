@@ -8,6 +8,8 @@ import 'package:ydione_plant_app/ui/screens/favorite_page.dart';
 import 'package:ydione_plant_app/ui/screens/home_page.dart';
 import 'package:ydione_plant_app/ui/screens/profile_page.dart';
 
+import '../models/plants.dart';
+
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
 
@@ -17,12 +19,14 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
 //List of the pages
-  List<Widget> pages = const [
-    HomePage(),
-    FavoritePage(),
-    CartPage(),
-    ProfilePage(),
-  ];
+  List<Widget> _widgetOptions() {
+    return [
+      const HomePage(),
+      FavoritePage(favoritedPlants: favorites),
+      CartPage(addedToCartPlants: myCart),
+      const ProfilePage(),
+    ];
+  }
 
 //List of the pages icons
   List<IconData> iconList = [
@@ -41,9 +45,17 @@ class _RootPageState extends State<RootPage> {
   ];
 
   int _bottomNavIndex = 0;
+  List<Plant> favorites = [];
+  List<Plant> myCart = [];
+
   void _bottomBarNavigation(int index) {
     setState(() {
       _bottomNavIndex = index;
+      final List<Plant> favoritedPlants = Plant.getFavoritedPlants();
+      final List<Plant> addedToCartPlants = Plant.addedToCartPlants();
+
+      favorites = favoritedPlants;
+      myCart = addedToCartPlants.toSet().toList();
     });
   }
 
@@ -87,7 +99,7 @@ class _RootPageState extends State<RootPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: pages[_bottomNavIndex],
+      body: _widgetOptions()[_bottomNavIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _bottomNavIndex,
         onTap: _bottomBarNavigation,

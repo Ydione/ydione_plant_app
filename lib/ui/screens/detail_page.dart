@@ -12,6 +12,15 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  //Toggle Favorite button
+  bool toggleFavorated(bool isFavorated) {
+    return !isFavorated;
+  }
+
+  bool toggleIsSelected(bool isSelected) {
+    return !isSelected;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,12 +63,21 @@ class _DetailPageState extends State<DetailPage> {
                       borderRadius: BorderRadius.circular(25),
                       color: Constants.primaryColor.withOpacity(.15),
                     ),
-                    child: Icon(
-                      _plantList[widget.plantId].isFavorated == true
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Constants.primaryColor,
-                    ),
+                    child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            bool isFavorited = toggleFavorated(
+                                _plantList[widget.plantId].isFavorated);
+                            _plantList[widget.plantId].isFavorated =
+                                isFavorited;
+                          });
+                        },
+                        icon: Icon(
+                          _plantList[widget.plantId].isFavorated == true
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: Constants.primaryColor,
+                        )),
                   ),
                 ),
               ],
@@ -79,7 +97,7 @@ class _DetailPageState extends State<DetailPage> {
                     top: 10,
                     left: 0,
                     child: SizedBox(
-                      height: 350,
+                      height: 300,
                       child: Image.asset(_plantList[widget.plantId].imageURL),
                     ),
                   ),
@@ -201,7 +219,9 @@ class _DetailPageState extends State<DetailPage> {
               height: 50,
               width: 50,
               decoration: BoxDecoration(
-                  color: Constants.primaryColor.withOpacity(.5),
+                  color: _plantList[widget.plantId].isSelected == true
+                      ? Constants.primaryColor.withOpacity(.5)
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(50),
                   boxShadow: [
                     BoxShadow(
@@ -210,9 +230,20 @@ class _DetailPageState extends State<DetailPage> {
                       color: Constants.primaryColor.withOpacity(.3),
                     )
                   ]),
-              child: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
+              child: IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: _plantList[widget.plantId].isSelected == true
+                      ? Colors.white
+                      : Constants.primaryColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    bool isSelected =
+                        toggleIsSelected(_plantList[widget.plantId].isSelected);
+                    _plantList[widget.plantId].isSelected = isSelected;
+                  });
+                },
               ),
             ),
             const SizedBox(
