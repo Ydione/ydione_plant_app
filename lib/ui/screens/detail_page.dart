@@ -261,7 +261,7 @@ class _DetailPageState extends State<DetailPage> {
                         color: Constants.primaryColor.withOpacity(.3),
                       ),
                     ]),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'BUY NOW',
                     style: TextStyle(color: Colors.white, fontSize: 20.0),
