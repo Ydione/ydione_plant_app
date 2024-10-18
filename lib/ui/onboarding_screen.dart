@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ydione_plant_app/constants.dart';
 import 'package:ydione_plant_app/ui/root_page.dart';
+import 'package:ydione_plant_app/ui/signin_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -26,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: InkWell(
               onTap: () => {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => RootPage()))
+                    context, MaterialPageRoute(builder: (_) => const SignIn()))
               }, // to login screen
               child: const Text(
                 'Skip',
@@ -96,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RootPage(),
+                          builder: (context) => const SignIn(),
                         ),
                       );
                     }

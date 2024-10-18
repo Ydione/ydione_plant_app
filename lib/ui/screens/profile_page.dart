@@ -18,7 +18,8 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding:
+                EdgeInsets.symmetric(vertical: 10, horizontal: size.width * .1),
             height: size.height,
             width: size.width,
             child: Column(
